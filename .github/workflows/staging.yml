@@ -21,7 +21,7 @@ jobs:
 
       - name: Copy SSH Key to Droplet
         run: |
-          scp -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no ~/.ssh/id_rsa staging@64.226.74.83:~/.ssh/id_rsa
+          scp -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no ~/.ssh/id_rsa root@64.226.74.83:~/.ssh/id_rsa
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           user: staging
@@ -30,7 +30,7 @@ jobs:
         
       - name: Clone WordPress Repository
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "git clone https://github.com/nwekejoshua/joshua-wordpress.git /var/www/html/"
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} root@64.226.74.83 "git clone https://github.com/nwekejoshua/joshua-wordpress.git /var/www/html/"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           your_repository_url: https://github.com/nwekejoshua/joshua-wordpress.git
@@ -39,10 +39,10 @@ jobs:
 
       - name: Configure WordPress
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "sudo cd /var/www/html/joshua-wordpress && cp wp-config-sample.php wp-config.php"
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "sudo cd /var/www/html/joshua-wordpress && sed -i 's/joshua_wordpress/joshua_wordpress/g' wp-config.php"
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "sudo cd /var/www/html/joshua-wordpress && sed -i 's/joshua/joshua/g' wp-config.php"
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "sudo cd /var/www/html/joshua-wordpress && sed -i 's/1234/1234/g' wp-config.php"
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "cd /var/www/html/joshua-wordpress && cp wp-config-sample.php wp-config.php"
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "cd /var/www/html/joshua-wordpress && sed -i 's/joshua_wordpress/joshua_wordpress/g' wp-config.php"
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "cd /var/www/html/joshua-wordpress && sed -i 's/joshua/joshua/g' wp-config.php"
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "cd /var/www/html/joshua-wordpress && sed -i 's/1234/1234/g' wp-config.php"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           user: staging
