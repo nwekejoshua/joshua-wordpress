@@ -20,6 +20,6 @@ jobs:
 
       - name: Deploy code to DigitalOcean
         run: |
-          ssh staging@64.226.74.83 "cd /var/www/html && git pull origin staging" # Adjust paths and user as needed
+          ssh staging@64.226.74.83 -p 'password' "sudo cd /var/www/html && git pull origin staging" # Adjust paths and user as needed
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
