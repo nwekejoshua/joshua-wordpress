@@ -18,6 +18,16 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+
+      - name: Copy SSH Key to Droplet
+        run: |
+          scp -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no ~/.ssh/id_rsa staging@64.226.74.83:~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          user: staging
+          your_droplet_ip: 64.226.74.83
+
+        
       - name: Clone WordPress Repository
         run: |
           ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "git clone https://github.com/nwekejoshua/joshua-wordpress.git /var/www/html/"
