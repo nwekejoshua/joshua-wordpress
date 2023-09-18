@@ -1,0 +1,25 @@
+name: Deploy WordPress to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main # Change this to your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy code to DigitalOcean
+        run: |
+          ssh prod@64.226.74.83 "cd /var/www/html && git pull origin staging" # Adjust paths and user as needed
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
