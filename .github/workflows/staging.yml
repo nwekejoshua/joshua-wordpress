@@ -20,7 +20,7 @@ jobs:
 
       - name: Clone WordPress Repository
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "git clone https://github.com/nwekejoshua/joshua-wordpress.git /var/www/html/wordpress"
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} staging@64.226.74.83 "git clone https://github.com/nwekejoshua/joshua-wordpress.git /var/www/html/joshua-wordpress"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           your_repository_url: https://github.com/nwekejoshua/joshua-wordpress.git
